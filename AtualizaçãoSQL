@@ -1,0 +1,66 @@
+CREATE TABLE academia (
+    id_academia SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    endereco VARCHAR(100) NOT NULL,
+    telefone VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE clientes (
+    id_cliente SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(14) NOT NULL UNIQUE,
+    data_nascimento DATE NOT NULL,
+    telefone VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE instrutor (
+    id_instrutor SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    especialidade VARCHAR(100) NOT NULL,
+    telefone VARCHAR(20) NOT NULL,
+    cref VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE maquina (
+    id_maquina SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE contrato (
+    id_instrutor INT,
+    id_academia INT,
+    FOREIGN KEY (id_instrutor) REFERENCES instrutor(id_instrutor) ,
+    FOREIGN KEY (id_academia) REFERENCES academia(id_academia) 
+);
+
+CREATE TABLE matricula (
+    id_matricula SERIAL primary key,
+    id_cliente INT,
+    id_academia INT,
+    data_inicio DATE,
+    data_fim DATE,
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+    FOREIGN KEY (id_academia) REFERENCES academia(id_academia)
+);
+
+CREATE TABLE ficha_treino (
+    id_ficha SERIAL PRIMARY KEY,
+    objetivo VARCHAR(100),
+    data_inicio DATE,
+    data_fim DATE,
+    id_cliente INT,
+    id_instrutor INT,
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+    FOREIGN KEY (id_instrutor) REFERENCES instrutor(id_instrutor)
+);
+
+CREATE TABLE exercicios (
+    id_exercicios SERIAL primary key,
+    id_ficha INT,
+    id_maquina INT,
+    series INT,
+    repeticoes INT,
+    FOREIGN KEY (id_ficha) REFERENCES ficha_treino(id_ficha),
+    FOREIGN KEY (id_maquina) REFERENCES maquina(id_maquina)
+);
