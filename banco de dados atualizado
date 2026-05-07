@@ -40,7 +40,7 @@ CREATE TABLE matricula (
     id_academia INT,
     data_inicio DATE not null,
     data_fim DATE,
-	CHECK (data_fim >= data_inicio)
+	CHECK (data_fim >= data_inicio),
     PRIMARY KEY (id_cliente, id_academia),
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE,
     FOREIGN KEY (id_academia) REFERENCES academia(id_academia) ON DELETE CASCADE
@@ -53,7 +53,7 @@ CREATE TABLE ficha_treino (
     data_fim DATE,
     id_cliente INT,
     id_instrutor INT,
-	CHECK (data_fim >= data_inicio)
+	CHECK (data_fim >= data_inicio),
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE,
     FOREIGN KEY (id_instrutor) REFERENCES instrutor(id_instrutor) ON DELETE SET NULL
 );
@@ -64,7 +64,7 @@ CREATE TABLE ficha_maquina (
     series INT not null,
     repeticoes INT not null,
 	check (series >0 ),
-	check (repeticoes > 0 )
+	check (repeticoes > 0 ),
     PRIMARY KEY (id_ficha, id_maquina),
     FOREIGN KEY (id_ficha) REFERENCES ficha_treino(id_ficha) ON DELETE CASCADE,
     FOREIGN KEY (id_maquina) REFERENCES maquina(id_maquina) ON DELETE CASCADE
